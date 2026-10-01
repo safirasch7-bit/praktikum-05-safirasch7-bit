@@ -26,8 +26,7 @@
 //
 // -----------------------------------------------------------------------------
 
-#include "student.h"
-
+#include "student.h"  
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -71,21 +70,62 @@ string display(Stack& s) {
 
 // SOAL 1
 bool push(Stack& s, int nilai) {
-    return false;
+    Node* newNode = new Node();
+    if (newNode == nullptr) {
+        cout << "Stack penuh, tidak bisa menambahkan " << nilai << "." << endl;
+        return false;
+    }
+    newNode->data = nilai;
+    newNode->next = s.top;
+    s.top = newNode;
+    cout << "Berhasil menambahkan " << nilai << " ke stack." << endl;
+    return true;
 }
 
 // SOAL 2
 bool pop(Stack& s, int& nilai) {
-    return false;
+    if (s.top == nullptr) {
+        cout << "Stack kosong, tidak ada data yang bisa dihapus." << endl;
+        return false;
+    }
+    Node* temp = s.top;
+    nilai = temp->data;
+    s.top = s.top->next;
+    delete temp;
+    cout << "Data yang dihapus: " << nilai << endl;
+    return true;
 }
 
 // SOAL 3
 void clear(Stack& s) {
+    while (!isEmpty(s)) {
+        int nilai;
+        pop(s, nilai);
+    }
 }
 
 // SOAL 4
 bool kurungSeimbang(const string& ekspresi) {
-    return false;
+    Stack s;
+    inisialisasi(s);
+
+    for (size_t i = 0; i < ekspresi.length(); ++i) {
+        char c = ekspresi[i];
+        if (c == '(' || c == '{' || c == '[') {
+            push(s, c);
+        } else if (c == ')' || c == '}' || c == ']') {
+            int topChar;
+            if (!pop(s, topChar)) {
+                return false; 
+            }
+            if ((c == ')' && topChar != '(') ||
+                (c == '}' && topChar != '{') ||
+                (c == ']' && topChar != '[')) {
+                return false; 
+            }
+        }
+    }
+    return isEmpty(s); 
 }
 
 // =============================================================================
