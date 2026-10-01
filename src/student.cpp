@@ -172,7 +172,7 @@ static void keadaan(Stack& s) {
 
     baris("isEmpty") << benarSalah(isEmpty(s)) << "\n";
 }
-
+//x
 // Satu percobaan Ctrl+Z, lengkap dengan nilai yang diterima.
 static void cobaUndo(Stack& s) {
     int nilai = -999;
